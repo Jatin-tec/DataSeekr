@@ -18,7 +18,7 @@ from dotenv import load_dotenv
 repo_id = "tiiuae/falcon-40b"
 
 def get_conversation_chain(vectorstore):
-    momory = ConversationBufferMemory(memory_key="chat_history", return_messages=True, verbose=True)
+    momory = ConversationBufferMemory(memory_key="chat_history", return_messages=True, verbose=True, input_key="question", output_key="answer")
     # llm = HuggingFaceHub(repo_id=repo_id, model_kwargs={"temperature": 0.7, "max_length": 10000})
     llm = OpenAI(temperature=0.8, max_tokens=1000)
 
