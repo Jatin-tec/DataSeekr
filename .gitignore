@@ -1,0 +1,9 @@
+# data 
+data
+
+# environment
+.env
+credentials.json
+
+# cache
+__pycache__
