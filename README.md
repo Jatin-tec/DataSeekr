@@ -10,6 +10,36 @@ DataSeekr is a powerful search engine application designed to help you efficient
 - Leverage the power of Weaviate's vector-based search technology for accurate and fast results.
 - User-friendly Streamlit interface for an intuitive and enjoyable user experience.
 
+## Integrating Gmail API and Loading Mails
+
+To fetch and load your Gmail data into DataSeekr, follow these steps:
+
+1. Follow the tutorial at <a href="https://www.geeksforgeeks.org/how-to-read-emails-from-gmail-using-gmail-api-in-python/">How to Read Emails from Gmail Using Gmail API in Python</a> to set up Gmail API access and obtain your <code>credentials.json</code> file.
+
+2. Place the credentials.json file in the root directory of this repository.
+
+3. Make sure you have Docker installed. If not, download and install it from Docker's official website.
+
+4. Start the database by running the following command in the root directory:
+
+```bash
+docker-compose up -d --build 
+```
+
+5. Run the script to load your mails into the vector database:
+
+```bash
+python databases/load_mails_to_db_V1.py
+```
+
+6. To check if the loading is successful, you can run another script:
+
+```bash
+python databases/get_all.py
+```
+
+Now your Gmail data should be successfully loaded into the vector database, and you can use DataSeekr to search and explore your emails.
+
 ## Getting Started
 
 Follow these steps to set up and run DataSeekr locally on your machine:
@@ -33,13 +63,19 @@ conda activate dataseekr
 conda install --file requirements.txt
 ```
 
-4. Launch the DataSeekr application:
+4. Launch the database by running the following command in the root directory:
+
+```bash
+docker-compose up
+```
+
+5. Launch the DataSeekr application:
 
 ```bash
 streamlit run app.py
 ```
 
-5. Open your web browser and navigate to `http://localhost:8501` to access DataSeekr.
+6. Open your web browser and navigate to `http://localhost:8501` to access DataSeekr.
 
 ---
 Happy data searching with DataSeekr!
