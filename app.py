@@ -14,7 +14,7 @@ def main():
     # os.environ["HUGGINGFACEHUB_API_TOKEN"] = os.getenv("HUGGINGFACE_APIKEY")
     os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_APIKEY")
     client = weaviate.Client("http://localhost:8080")
-    vectorstore = Weaviate(client, "Mails", "mailBody")
+    vectorstore = Weaviate(client=client, index_name="Mails", text_key="mailBody")
 
     st.set_page_config(page_title="Inbox Search", page_icon=":mailbox_with_mail:", layout="wide")
     st.write(css, unsafe_allow_html=True)
