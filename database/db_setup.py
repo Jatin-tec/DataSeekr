@@ -14,7 +14,7 @@ client = weaviate.Client(
     }
 )
 
-# Create a class
+# Create mail class
 class_obj = {
     "class": "Mails",
     "vectorizer": "text2vec-huggingface",
@@ -53,11 +53,17 @@ class_obj = {
     "vectorIndexType": "hnsw",
 }
 
-schema = client.schema.create_class(class_obj)
+
+client.schema.create_class(class_obj)
     
-data = (client.query.get("Mails", ["mailBody", "mailSubject"])
+# data = (client.query.get("Mails", ["mailBody", "mailSubject"])
+#         .with_near_text({"concepts": ["Jatin Kshatriya"]})
+#         .with_limit(1)
+#       ).do()
+
+data = (client.query.get("Chat", ["conversation", "chatIndex"])
         .with_near_text({"concepts": ["Jatin Kshatriya"]})
         .with_limit(1)
-      ).do()
+        ).do()
 
 print(data)

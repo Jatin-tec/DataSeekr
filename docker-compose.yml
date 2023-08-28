@@ -13,6 +13,8 @@ services:
     ports:
     - 8080:8080
     restart: on-failure:0
+    volumes:
+      - /home/jatin/WorkSpace/Coustom-Search-Engine/weaviate_data:/var/lib/weaviate
     environment:
       HUGGINGFACE_APIKEY: $HUGGINGFACE_APIKEY
       QUERY_DEFAULTS_LIMIT: 25

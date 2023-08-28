@@ -13,6 +13,7 @@ import json
 import os
 from dotenv import load_dotenv
 import weaviate
+import pdb
 
 load_dotenv()
 
@@ -74,7 +75,11 @@ def getEmails():
     # messages is a list of dictionaries where each dictionary contains a message id.
   
     # iterate through all the messages
+    index = 0
     for msg in messages:
+        # if index<=97:
+        #     index += 1
+        #     continue
         # Get the message from its id
         txt = service.users().messages().get(userId='me', id=msg['id']).execute()
   
@@ -105,8 +110,9 @@ def getEmails():
 
             summary = query(str(body[0]))
 
+            # breakpoint()
             uuid = client.data_object.create({
-                "mailBody": str(summary),
+                "mailBody": str(summary[0]["summary_text"]),
                 "mailSubject": str(subject),
                 "mailFrom": str(sender),
             }, 'Mails')
