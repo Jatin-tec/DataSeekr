@@ -13,10 +13,12 @@ repo_id = "tiiuae/falcon-40b"
 
 def get_inbox_conversation(question, vectorstore):
     wrapper = LLMWrapper()
+    wrapper.history = st.session_state.wrapper_history
     conversation = wrapper.generate_response(question, vectorstore, k=3)
-    return conversation, wrapper
+    st.session_state.wrapper_history = True
+    return conversation
 
-def handel_user_input(user_query, conversation, wrapper, vectrstore):
+def handel_user_input(user_query, conversation, vectrstore):
 
     st.session_state.chat_history.append(user_query)
 
@@ -38,7 +40,6 @@ def handel_user_input(user_query, conversation, wrapper, vectrstore):
         result = "".join(response_msg)
         res_box.markdown(bot_template.replace("{{MSG}}", result), unsafe_allow_html=True)
 
-    wrapper.history = True
     st.session_state.chat_index += 1
     
     vectrstore.data_object.create({
@@ -70,15 +71,18 @@ def main():
 
         if "chat_history" not in st.session_state:
             st.session_state.chat_history = []
-        
+
+        if "wrapper_history" not in st.session_state:
+            st.session_state.wrapper_history = False
+
         if "chat_index" not in st.session_state:
             st.session_state.chat_index = 0
         
         if st.button("Search"):
             with st.spinner("Searching..."):
                 if question:
-                    conversation, wrapper = get_inbox_conversation(question, vectorstore)
-                    handel_user_input(question, conversation, wrapper, vectorstore)
+                    conversation = get_inbox_conversation(question, vectorstore)
+                    handel_user_input(question, conversation, vectorstore)
 
     elif platform == "LinkedIn":
         st.write("Coming soon...")
