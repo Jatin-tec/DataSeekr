@@ -12,9 +12,20 @@ client = weaviate.Client(
     }
 )
 
-batch_size = 1000
+batch_size = 100
 class_name = "Mails"
-class_properties = ["mailBody"]
+class_properties = ["mailBody", "mailSubject"]
+cursor = None
+
+# query = (
+#     client.query.get(class_name, class_properties)
+#     .with_additional(["id vector"])
+#     .with_limit(batch_size)
+# )
+# print(len(query.do()["data"]["Get"]["Mails"]))
+
+class_name = "Chat"
+class_properties = ['conversation', 'chatIndex']
 cursor = None
 
 query = (
@@ -22,5 +33,4 @@ query = (
     .with_additional(["id vector"])
     .with_limit(batch_size)
 )
-
-print(len(query.do()["data"]["Get"][class_name]))
+print(query.do()["data"]["Get"]["Chat"])

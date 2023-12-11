@@ -7,3 +7,12 @@ credentials.json
 
 # cache
 __pycache__
+
+# weights
+*.pickle
+
+# database
+weaviate_data
+
+#edior 
+.vscode
